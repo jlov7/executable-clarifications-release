@@ -1,0 +1,2 @@
+# Optional pinned development lint gate; no runtime dependency.
+ruff==0.17.1

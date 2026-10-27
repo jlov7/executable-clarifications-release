@@ -1,0 +1,22 @@
+{
+  "provenance": "authored input/output regression tables, not independently labeled human data",
+  "cases": {
+    "age_window": [
+      {"input": {"days": 19}, "expected": true},
+      {"input": {"days": 20}, "expected": true},
+      {"input": {"days": 21}, "expected": true},
+      {"input": {"days": 29}, "expected": true},
+      {"input": {"days": 30}, "expected": true},
+      {"input": {"days": 31}, "expected": false}
+    ],
+    "constant_control": [
+      {"input": {"value": 0}, "expected": true},
+      {"input": {"value": 1}, "expected": true}
+    ],
+    "candidate_miss": [
+      {"input": {"days": 29}, "expected": false},
+      {"input": {"days": 30}, "expected": true},
+      {"input": {"days": 31}, "expected": false}
+    ]
+  }
+}

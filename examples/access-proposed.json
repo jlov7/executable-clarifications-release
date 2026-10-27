@@ -1,0 +1,15 @@
+{
+  "schema": "executable-clarifications/policy-v1",
+  "fields": {"score": "integer", "trainee": "boolean", "mode": {"enum": ["desk", "remote"]}},
+  "candidates": [
+    {"id": "access", "rule": {"or": [
+      {"field": "score", "op": ">", "value": 80},
+      {"field": "trainee", "op": "==", "value": true}
+    ]}},
+    {"id": "other", "rule": {"field": "score", "op": "<=", "value": 5}}
+  ],
+  "cases": [
+    {"id": "low", "input": {"score": 20, "trainee": false, "mode": "desk"}},
+    {"id": "high", "input": {"score": 100, "trainee": false, "mode": "desk"}}
+  ]
+}

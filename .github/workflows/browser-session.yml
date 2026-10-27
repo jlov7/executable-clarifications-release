@@ -1,0 +1,30 @@
+name: Adaptive clarification browser
+on:
+  push:
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  browser:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: '3.13'
+      - uses: astral-sh/setup-uv@1c37ad07a6a961277cf70c0d37d6f313000f5884 # v10.3.0
+        with:
+          version: '0.13.1'
+      - run: uv venv .venv
+      - run: uv pip install --python .venv/bin/python -r requirements-release.txt .
+      - run: .venv/bin/python -m playwright install --with-deps chromium
+      - run: .venv/bin/python scripts/test_session_browser.py
+      - run: .venv/bin/python scripts/test_add21_browser.py
+      - run: .venv/bin/python scripts/test_suggestions_browser.py
+      - run: .venv/bin/python scripts/test_examples_browser.py
+      - run: .venv/bin/python scripts/test_recovery_browser.py
+      - run: .venv/bin/python scripts/test_conflicts_browser.py
+      - run: .venv/bin/python scripts/test_export_target_browser.py

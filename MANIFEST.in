@@ -1,0 +1,13 @@
+include CITATION.cff
+include README.md CHANGELOG.md pyproject.toml requirements-release.txt requirements-lint.txt CONTRIBUTING.md SECURITY.md
+include docs/STABILITY.md docs/USAGE.md docs/DESIGN.md docs/EVALUATION.md docs/LIMITATIONS.md docs/REFERENCES.md
+include docs/VALIDATION.md
+recursive-include src *.py *.json
+recursive-include tests *.py *.json *.js
+recursive-include examples *.json
+recursive-include scripts *.py
+recursive-include web *.html *.css *.js *.sha256 *.json
+exclude LICENSE-STATUS.md AGENTS.md STATUS.md
+prune .release-scratch
+prune .github
+recursive-include docs/images *.png

@@ -1,0 +1,16 @@
+{
+  "schema": "executable-clarifications/policy-v1",
+  "fields": {"days": "integer", "unopened": "boolean", "reason": {"enum": ["changed mind", "defective"]}},
+  "candidates": [
+    {"id": "refund", "rule": {"or": [{"and": [{"field": "days", "op": "<=", "value": 30}, {"field": "unopened", "op": "==", "value": true}]}, {"field": "reason", "op": "in", "value": ["defective"]}]}},
+    {"id": "exclusive", "rule": {"or": [{"and": [{"field": "days", "op": "<", "value": 30}, {"field": "unopened", "op": "==", "value": true}]}, {"field": "reason", "op": "==", "value": "defective"}]}},
+    {"id": "all_conditions", "rule": {"and": [{"field": "days", "op": "<=", "value": 30}, {"field": "unopened", "op": "==", "value": true}, {"field": "reason", "op": "==", "value": "defective"}]}},
+    {"id": "age_only", "rule": {"field": "days", "op": "<=", "value": 30}}
+  ],
+  "cases": [
+    {"id": "boundary", "input": {"days": 30, "unopened": true, "reason": "changed mind"}},
+    {"id": "opened", "input": {"days": 10, "unopened": false, "reason": "changed mind"}},
+    {"id": "late_defect", "input": {"days": 90, "unopened": false, "reason": "defective"}},
+    {"id": "ordinary", "input": {"days": 10, "unopened": true, "reason": "changed mind"}}
+  ]
+}

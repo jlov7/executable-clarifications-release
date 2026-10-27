@@ -1,0 +1,61 @@
+{
+  "schema": "executable-clarifications/example-set-v1",
+  "fields": {
+    "minutes": "integer",
+    "emergency": "boolean",
+    "channel": {
+      "enum": [
+        "standard",
+        "partner",
+        "blocked"
+      ]
+    }
+  },
+  "examples": [
+    {
+      "id": "ordinary",
+      "input": {
+        "minutes": 15,
+        "emergency": false,
+        "channel": "standard"
+      },
+      "expected": true
+    },
+    {
+      "id": "boundary",
+      "input": {
+        "minutes": 30,
+        "emergency": false,
+        "channel": "standard"
+      },
+      "expected": true
+    },
+    {
+      "id": "late",
+      "input": {
+        "minutes": 31,
+        "emergency": false,
+        "channel": "partner"
+      },
+      "expected": false
+    },
+    {
+      "id": "dispatch_exception",
+      "input": {
+        "minutes": 47,
+        "emergency": true,
+        "channel": "partner"
+      },
+      "expected": true
+    },
+    {
+      "id": "blocked_override",
+      "input": {
+        "minutes": 5,
+        "emergency": true,
+        "channel": "blocked"
+      },
+      "expected": false
+    }
+  ]
+}

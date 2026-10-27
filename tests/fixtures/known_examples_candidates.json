@@ -1,0 +1,113 @@
+{
+  "schema": "executable-clarifications/policy-v1",
+  "fields": {
+    "minutes": "integer",
+    "emergency": "boolean",
+    "channel": {
+      "enum": [
+        "standard",
+        "partner",
+        "blocked"
+      ]
+    }
+  },
+  "candidates": [
+    {
+      "id": "intended",
+      "rule": {
+        "and": [
+          {
+            "field": "channel",
+            "op": "!=",
+            "value": "blocked"
+          },
+          {
+            "or": [
+              {
+                "field": "minutes",
+                "op": "<=",
+                "value": 30
+              },
+              {
+                "and": [
+                  {
+                    "field": "emergency",
+                    "op": "==",
+                    "value": true
+                  },
+                  {
+                    "field": "channel",
+                    "op": "==",
+                    "value": "partner"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "omitted_exception",
+      "rule": {
+        "and": [
+          {
+            "field": "minutes",
+            "op": "<=",
+            "value": 30
+          },
+          {
+            "field": "channel",
+            "op": "!=",
+            "value": "blocked"
+          }
+        ]
+      }
+    },
+    {
+      "id": "exclusive_boundary",
+      "rule": {
+        "and": [
+          {
+            "field": "channel",
+            "op": "!=",
+            "value": "blocked"
+          },
+          {
+            "or": [
+              {
+                "field": "minutes",
+                "op": "<",
+                "value": 30
+              },
+              {
+                "and": [
+                  {
+                    "field": "emergency",
+                    "op": "==",
+                    "value": true
+                  },
+                  {
+                    "field": "channel",
+                    "op": "==",
+                    "value": "partner"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "cases": [
+    {
+      "id": "review_seed",
+      "input": {
+        "minutes": 0,
+        "emergency": false,
+        "channel": "standard"
+      }
+    }
+  ]
+}

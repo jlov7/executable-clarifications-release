@@ -1,0 +1,35 @@
+{
+  "provenance": "authored regression fixtures, not human or model evidence",
+  "cases": {
+    "age_window": {
+      "requirement": "Include items within the selected age window.",
+      "generator_input": {
+        "schema": "executable-clarifications/integer-grid-v1",
+        "field": "days",
+        "operators": ["<", "<="],
+        "thresholds": [20, 30]
+      },
+      "domain": [19, 20, 21, 29, 30, 31]
+    },
+    "constant_control": {
+      "requirement": "Accept these two small input values.",
+      "generator_input": {
+        "schema": "executable-clarifications/integer-grid-v1",
+        "field": "value",
+        "operators": ["<", "<="],
+        "thresholds": [10]
+      },
+      "domain": [0, 1]
+    },
+    "candidate_miss": {
+      "requirement": "Include items exactly at the selected age.",
+      "generator_input": {
+        "schema": "executable-clarifications/integer-grid-v1",
+        "field": "days",
+        "operators": ["<", "<="],
+        "thresholds": [30]
+      },
+      "domain": [29, 30, 31]
+    }
+  }
+}
